@@ -7,7 +7,7 @@ var startFrameMillis = Date.now();
 var endFrameMillis = Date.now();
 
 var player = new Player();
-//var keyboard = new Keyboard();
+var keyboard = new Keyboard();
 
 // This function will return the time in seconds since the function 
 // was last called
@@ -24,27 +24,7 @@ var TILESET_COUNT_Y = 14;
 var tileset = document.createElement("img")
 tileset.src = "tileset.png"
 
-function drawMap()
-{
-    for(var layeridx=0; layeridx<LATER_COUNT;layeridx++)
-    {
-        var idx = 0;
-        for(var y = 0; y < level1.layers[layeridx].height; y++)
-        {
-            for(var x = 0; x < level1.layers[layeridx].width; y++)
-            {
-                if( level1.layers[layeridx].data[idx] != 0)
-                {
-                    var tileIndex = level1.layers[layeridx].data[idx]-1;
-                    var sx = TILESET_PADDING + (tileIndex % TILESET_COUNT_X)*(TILE_SPACING);
-                    var sy = TILESET_PADDING + (Math.floor(tileIndex / TILESET_COUNT_Y))*(TILESET_TILE + TILESET_SPACING);
-                    context.drawImage(tileset, sx, sy, TILESET_TILE, TILESET_TILE, x*TILE, (y-1)*TILE, TILESET_TILE, TILESET_TILE);
-                }
-                idx++;
-            }
-        }
-    }
-}
+
 
 function getDeltaTime()
 {
@@ -113,6 +93,27 @@ function run()
 	context.fillText("FPS: " + fps, 5, 20, 100);
 }
 
+function drawMap()
+{
+    for(var layeridx=0; layeridx<LATER_COUNT;layeridx++)
+    {
+        var idx = 0;
+        for(var y = 0; y < level1.layers[layeridx].height; y++)
+        {
+            for(var x = 0; x < level1.layers[layeridx].width; y++)
+            {
+                if( level1.layers[layeridx].data[idx] != 0)
+                {
+                    var tileIndex = level1.layers[layeridx].data[idx]-1;
+                    var sx = TILESET_PADDING + (tileIndex % TILESET_COUNT_X)*(TILE_SPACING);
+                    var sy = TILESET_PADDING + (Math.floor(tileIndex / TILESET_COUNT_Y))*(TILESET_TILE + TILESET_SPACING);
+                    context.drawImage(tileset, sx, sy, TILESET_TILE, TILESET_TILE, x*TILE, (y-1)*TILE, TILESET_TILE, TILESET_TILE);
+                }
+                idx++;
+            }
+        }
+    }
+}
 
 //-------------------- Don't modify anything below here
 
