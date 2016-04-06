@@ -7,7 +7,7 @@ var startFrameMillis = Date.now();
 var endFrameMillis = Date.now();
 
 var player = new Player();
-//var keyboard = new Keyboard();
+var keyboard = new Keyboard();
 
 // This function will return the time in seconds since the function 
 // was last called
@@ -78,12 +78,14 @@ var fpsTime = 0;
 var chuckNorris = document.createElement("img");
 chuckNorris.src = "hero.png";
 
+drawMap
+
 function run()
 {
 	context.fillStyle = "#ccc";		
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	
-    drawMap
+    
     
 	var deltaTime = getDeltaTime();
 	
@@ -111,7 +113,7 @@ function run()
 }
 
 
-
+intitialize();
 
 
 //-------------------- Don't modify anything below here
