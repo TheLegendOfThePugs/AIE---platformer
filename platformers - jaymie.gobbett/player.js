@@ -1,6 +1,8 @@
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
 
+var keyboard = new Keyboard();
+
 var Player = function() {
     this.image = document.createElement("img")
     this.x = canvas.width/2;
@@ -20,9 +22,18 @@ var player = new Player();
 
 Player.prototype.update = function(deltaTime)
 {
-    if( typepof(this.rotation) == "undefined" )
+    if( typeof(this.rotation) == "undefined" )
         this.rotation = 0;
     this.rotation += deltaTime;
+    
+    if(keyboard.isKeyDown(keyboard.KEY_SPACE) == true)
+    {
+        this.rotation -= deltaTime;
+    }
+    else 
+    {
+        this.rotation += deltaTime;
+    }
 }
 
 Player.prototype.draw = function()
