@@ -17,13 +17,13 @@ var Player = function() {
 
 
 var player = new Player();
-/*
+
 Player.prototype.update = function(deltaTime)
 {
     if( typepof(this.rotation) == "undefined" )
         this.rotation = 0;
     this.rotation += deltaTime;
-}*/
+}
 
 Player.prototype.draw = function()
 {

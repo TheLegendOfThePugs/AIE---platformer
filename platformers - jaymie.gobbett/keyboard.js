@@ -1,6 +1,6 @@
 
 
-var keyboard = function() {
+var Keyboard = function() {
     var self = this;
     
     window.addEventListener('keydown', function(evt) { self.onKeyDown(evt); }, false);
@@ -25,17 +25,17 @@ var keyboard = function() {
 };
 
 
-keyboard.prototype.onKeyDown = function(evt)
+Keyboard.prototype.onKeyDown = function(evt)
 {
     this.keys[evt.keyCode] = true;
 };
 
-keyboard.prototype.onKeyUp = function(evt)
+Keyboard.prototype.onKeyUp = function(evt)
 {
     this.keys[evt.keyCode] = false;
 };
 
-keyboard.prototype.isKeyDown = function(evt)
+Keyboard.prototype.isKeyDown = function(evt)
 {
     return this.keys[keyCode];
 };
