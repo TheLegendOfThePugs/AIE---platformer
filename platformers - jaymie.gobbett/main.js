@@ -88,7 +88,7 @@ function run()
 	context.fillStyle = "#ccc";		
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	
-    drawMap
+    
     
 	var deltaTime = getDeltaTime();
 	
@@ -108,7 +108,7 @@ function run()
 		fps = fpsCount;
 		fpsCount = 0;
 	}		
-	
+	drawMap();
 	// draw the FPS
 	context.fillStyle = "#f00";
 	context.font="14px Arial";
