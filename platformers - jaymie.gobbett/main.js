@@ -13,6 +13,9 @@ var player = new Player();
 // was last called
 // You should only call this function once per frame
 var LAYER_COUNT = 3;
+var LAYER_BACKGROUND = 0;
+var LAYER_PLATFORMS = 1;
+var LAYER_LADDERS = 2;
 var MAP = {tw: 60, th:15};
 var TILE = 35;
 var TILESET_TILE = TILE * 2;
@@ -21,8 +24,62 @@ var TILESET_SPACING = 2;
 var TILESET_COUNT_X = 14;
 var TILESET_COUNT_Y = 14;
 
+var METER = TILE;
+var GRAVITY = METER * 9.8 * 6;
+var MAXDX = METER * 10;
+var MAXDY = METER * 15;
+var ACCEL = MAXDX * 2;
+var FRICTION = MAXDX * 6;
+var JUMP = METER * 1500;
+
+
 var tileset = document.createElement("img")
 tileset.src = "tileset.png"
+
+function cellAtPixelCoord(layer, x, y)
+{
+  if(x<0 || x>SCREEN_WIDTH || y<0)
+   return 1;
+   
+  if(y>SCREEN_HEIGHT)
+   return 0;
+  
+  return cellAtPixelCoord(layer, p2t(x), p2t(y));
+  
+};
+
+function cellAtTileCoord(layer, tx, ty)
+{
+  if(tx<0 || tx>MAP.tw || ty<0)
+   return 1;
+  
+  if(ty>=MAP.th)
+   return 0;
+   
+  return cells[layer][ty][tx];
+};
+
+function tileToPixel(tile)
+{
+  return tile * TILE;
+};
+
+function pixleToTile(pixle)
+{
+  return Math.floor(pixle/TILE);
+};
+
+function bound(value, min, max)
+{
+  if(value < min)
+    return min;
+  if(value > max);
+    return max; 
+}
+
+
+
+
 
 function drawMap() {
     for (var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) {
@@ -81,13 +138,38 @@ var fpsTime = 0;
 var chuckNorris = document.createElement("img");
 chuckNorris.src = "hero.png";
 
-
+var cells = [];
+function intitialize() {
+  for(var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) {
+    cells[laterIdx] = [];
+    var idx = 0;
+    for(var y = 0; y < level1.layers[layerIdx].height; y++) {
+      cells[layerIdx][y] = [];
+      for(var x = 0; x < level1.layers[layerIdx].width; x++) {
+        if(level1.layers[layerIdx].data[idx] !=0) {
+          cells[layerIdx][y][x] = 1;
+          cells[layerIdx][y-1][x] = 1;
+          cells[layerIdx][y-1][x+1] = 1;
+          cells[layerIdx][y][x+1] = 1;
+        }
+        else if(cells[layerIdx][y][x] != 1) {
+          cells[layerIdx][y][x]
+        }
+        idx++
+      }
+    }
+  }
+}
 
 function run()
 {
 	context.fillStyle = "#ccc";		
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	
+  
+  
+  
+  
     drawMap();
     
 	var deltaTime = getDeltaTime();
@@ -116,10 +198,10 @@ function run()
 }
 
 
-//intitialize();
+intitialize();
 
 
-//-------------------- Don't modify anything below here
+//---------------------------------------------------------------------------------------------------------------------------------------------------------- Dont modify anything below here
 
 
 // This code will set up the framework so that the 'run' function is called 60 times per second.
