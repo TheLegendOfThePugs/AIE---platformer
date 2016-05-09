@@ -29,3 +29,15 @@ Vector2.prototype.GetNormal = function ()
     
     return v2;
 }
+
+Vector2.prototype.Add = function (other)
+{
+    this.x += other.x;
+    this.y += other.y;
+}
+
+Vector2.prototype.Subtract = function (other)
+{
+    this.x -= other.x;
+    this.y -= other.y;
+}
