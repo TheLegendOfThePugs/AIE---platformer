@@ -56,7 +56,7 @@ Sprite.prototype.setAnimationOffset = function(anim, x, y) {
 
 Sprite.prototype.getAnimationOffset = function() {
 	return this.offsets[this.currentAnimation];
-}
+};
 
 Sprite.prototype.buildAnimation = function(frameXCount, frameYCount, frameW, frameH, timeStep, animIdxArray)
 {
