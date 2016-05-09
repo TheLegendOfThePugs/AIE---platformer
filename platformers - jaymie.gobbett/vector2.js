@@ -41,3 +41,15 @@ Vector2.prototype.Subtract = function (other)
     this.x -= other.x;
     this.y -= other.y;
 }
+
+Vector2.prototype.Multiply = function (scalar)
+{
+    this.x *= scalar;
+    this.y *= scalar;
+}
+
+Vector2.prototype.Devide = function (scalar)
+{
+    this.x /= scalar;
+    this.y /= scalar;
+}
