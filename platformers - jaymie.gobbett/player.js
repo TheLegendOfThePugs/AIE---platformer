@@ -125,15 +125,45 @@ Player.prototype.update = function(deltaTime)
         this.direction = LEFT;
         if(this.sprite.currentAnimation != ANIM_WALK_LEFT) this.sprite.setAnimation(ANIM_WALK_LEFT);
     }
-    if(keyboard.isKeyDown(keyboard.KEY_RIGHT) == true)
+    else if(keyboard.isKeyDown(keyboard.KEY_RIGHT) == true)
     {
         right = true;
         this.direction = RIGHT;
         if(this.sprite.currentAnimation != ANIM_WALK_RIGHT) this.sprite.setAnimation(ANIM_WALK_RIGHT);
     }
+    else {
+        if(this.jumping == false && this.falling == false)
+        {
+            if(this.direction == LEFT)
+            {
+                if(this.sprite.currentAnimation != ANIM_IDLE_LEFT) this.sprite.setAnimation(ANIM_IDLE_RIGHT);
+            }
+            else
+            {
+                if(this.sprite.currentAnimation != ANIM_IDLE_RIGHT) this.sprite.setAnimation(ANIM_IDLE_RIGHT);
+            }
+        }
+    }
     if(keyboard.isKeyDown(keyboard.KEY_SPACE) == true)
     {
         jump = true;
+        if(left == true) {
+            this.sprite.setAnimation(ANIM_JUMP_LEFT);
+        }
+        if(right == true) {
+            this.sprite.setAnimation(ANIM_JUMP_RIGHT);
+        }
+    }
+    
+    
+    
+    if (jump && !this.jumping && !falling)
+    {
+        ddy = ddy - JUMP;
+        this.jumping = true;
+        if(this.direction == LEFT) this.sprite.setAnimation(ANIM_JUMP_LEFT)
+        else
+        this.sprite.setAnimation(ANIM_JUMP_RIGHT)
     }
     
     var wasleft = this.velocity.x < 0;
