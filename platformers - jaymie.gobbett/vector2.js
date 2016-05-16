@@ -5,6 +5,7 @@ var Vector2 = function (nX, nY)
 }
 
 
+
 Vector2.prototype.Magnitude = function ()
 {
     var mag = this.x*this.x + this.y*this.y;
@@ -52,4 +53,11 @@ Vector2.prototype.Devide = function (scalar)
 {
     this.x /= scalar;
     this.y /= scalar;
+}
+
+
+Vector2.prototype.set = function (x, y)
+{
+    this.x = x;
+    this.y = y;
 }
