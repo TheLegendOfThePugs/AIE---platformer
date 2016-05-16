@@ -11,6 +11,7 @@ var ANIM_JUMP_RIGHT = 4;
 var ANIM_WALK_RIGHT = 5;
 var ANIM_MAX = 6;
 
+//var TILE = 35;
 
 var keyboard = new Keyboard();
 
@@ -58,7 +59,7 @@ var Player = function() {
 
 
 
-var player = new Player();
+
 
 Player.prototype.update = function(deltaTime)
 {
@@ -104,14 +105,14 @@ Player.prototype.update = function(deltaTime)
     this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y))
     this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x))
     
-    var tx = pixelToTile(this.position.x);
-    var ty = pixelToTile(this.position.y);
+    var tx = pixleToTile(this.position.x);
+    var ty = pixleToTile(this.position.y);
     var nx = (this.position.x)%TILE;
     var ny = (this.position.y)%TILE;
-    var cell = cellAtCoord(LAYER_PLATFORMS, tx, ty);
-    var cellright = cellAtCoord(LAYER_PLATFORMS, tx + 1, ty);
-    var celldown = cellAtCoord(LAYER_PLATFORMS, tx, ty + 1);
-    var cellright = cellAtCoord(LAYER_PLATFORMS, tx + 1, ty + 1);
+    var cell = cellAtTileCoord(LAYER_PLATFORMS, tx, ty);
+    var cellright = cellAtTileCoord(LAYER_PLATFORMS, tx + 1, ty);
+    var celldown = cellAtTileCoord(LAYER_PLATFORMS, tx, ty + 1);
+    var cellright = cellAtTileCoord(LAYER_PLATFORMS, tx + 1, ty + 1);
     
     this.sprite.update(deltaTime);
     

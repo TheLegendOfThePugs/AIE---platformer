@@ -6,7 +6,7 @@ var context = canvas.getContext("2d");
 var startFrameMillis = Date.now();
 var endFrameMillis = Date.now();
 
-var player = new Player();
+
 //var keyboard = new Keyboard();
 
 // This function will return the time in seconds since the function 
@@ -36,7 +36,7 @@ var JUMP = METER * 1500;
 var tileset = document.createElement("img")
 tileset.src = "tileset.png"
 
-function cellAtPixelCoord(layer, x, y)
+function cellAtPixleCoord(layer, x, y)
 {
   if(x<0 || x>SCREEN_WIDTH || y<0)
    return 1;
@@ -141,7 +141,7 @@ chuckNorris.src = "hero.png";
 var cells = [];
 function intitialize() {
   for(var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) {
-    cells[laterIdx] = [];
+    cells[layerIdx] = [];
     var idx = 0;
     for(var y = 0; y < level1.layers[layerIdx].height; y++) {
       cells[layerIdx][y] = [];
@@ -160,6 +160,8 @@ function intitialize() {
     }
   }
 }
+
+var player = new Player();
 
 function run()
 {
