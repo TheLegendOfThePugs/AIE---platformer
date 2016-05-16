@@ -36,7 +36,7 @@ var JUMP = METER * 1500;
 var tileset = document.createElement("img")
 tileset.src = "tileset.png"
 
-function cellAtPixleCoord(layer, x, y)
+function cellAtPixleCoord(layer, x,y)
 {
   if(x<0 || x>SCREEN_WIDTH || y<0)
    return 1;
@@ -44,7 +44,7 @@ function cellAtPixleCoord(layer, x, y)
   if(y>SCREEN_HEIGHT)
    return 0;
   
-  return cellAtPixelCoord(layer, p2t(x), p2t(y));
+  return cellAtPixleCoord(layer, p2t(x), p2t(y));
   
 };
 
@@ -55,11 +55,12 @@ function cellAtTileCoord(layer, tx, ty)
   
   if(ty>=MAP.th)
    return 0;
+   console.log(ty)
+   return cells[layer][ty][tx];
    
-  return cells[layer][ty][tx];
 };
 
-function tileToPixel(tile)
+function tileToPixle(tile)
 {
   return tile * TILE;
 };
@@ -69,13 +70,13 @@ function pixleToTile(pixle)
   return Math.floor(pixle/TILE);
 };
 
-function bound(value, min, max)
-{
-  if(value < min)
+function bound(value, min, max) {
+  if (value < min)
     return min;
-  if(value > max);
-    return max; 
-}
+  if (value > max);
+  return max;
+  return value;
+};
 
 
 
@@ -139,7 +140,7 @@ var chuckNorris = document.createElement("img");
 chuckNorris.src = "hero.png";
 
 var cells = [];
-function intitialize() {
+function initialize() {
   for(var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) {
     cells[layerIdx] = [];
     var idx = 0;
@@ -200,7 +201,7 @@ function run()
 }
 
 
-intitialize();
+initialize();
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------- Dont modify anything below here

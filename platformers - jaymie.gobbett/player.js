@@ -34,7 +34,7 @@ var Player = function() {
     
     
     this.position = new Vector2();
-    this.position.set( 9*TILE, 0*TILE );
+    this.position.set( 9*TILE, 0*TILE );//(100, 100);
     
     
     //this.image = document.createElement("img")
@@ -189,7 +189,7 @@ Player.prototype.update = function(deltaTime)
     this.velocity.x = bound(this.velocity.x + (deltaTime + ddx), -MAXDX);
     this.velocity.y = bound(this.velocity.y + (deltaTime + ddy), -MAXDY);
     
-    if ((wasleft && (this.velocity.x > 0)) (wasright && (this.velocity.x < 0)))
+    if ((wasleft && (this.velocity.x > 0)) || (wasright && (this.velocity.x < 0)))
     {
         this.velocity.x = 0;
     }
