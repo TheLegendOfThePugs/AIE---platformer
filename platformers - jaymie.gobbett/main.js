@@ -100,7 +100,7 @@ function drawMap() {
         }
     }
 }
-
+ 
 function getDeltaTime()
 {
 	endFrameMillis = startFrameMillis;
