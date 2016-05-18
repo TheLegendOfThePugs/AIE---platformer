@@ -102,17 +102,28 @@ Player.prototype.update = function(deltaTime)
     var right = false
     var jump = false
     
+    this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y));
+    this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x));
+    this.velocity.x = bound(this.velocity.x + (deltaTime + ddx), -MAXDX);
+    this.velocity.y = bound(this.velocity.y + (deltaTime + ddy), -MAXDY);
+    
+    if ((wasleft && (this.velocity.x > 0)) || (wasright && (this.velocity.x < 0)))
+    {
+        this.velocity.x = 0;
+    }
+    
+    /*
     this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y))
     this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x))
-    
+    */
     var tx = pixelToTile(this.position.x);
     var ty = pixelToTile(this.position.y);
     var nx = (this.position.x)%TILE;
     var ny = (this.position.y)%TILE;
-    var cell = cellAtTileCoord(LAYER_PLATFORMS, tx, ty);
+    var cell = cellAtTileCoord(LAYER_PLATFORMS, ty, tx);
     var cellright = cellAtTileCoord(LAYER_PLATFORMS, tx + 1, ty);
     var celldown = cellAtTileCoord(LAYER_PLATFORMS, tx, ty + 1);
-    var cellright = cellAtTileCoord(LAYER_PLATFORMS, tx + 1, ty + 1);
+    var celldiag = cellAtTileCoord(LAYER_PLATFORMS, tx + 1, ty + 1);
     
     this.sprite.update(deltaTime);
     
@@ -184,15 +195,8 @@ Player.prototype.update = function(deltaTime)
         this.jump = true;
     }*/
     
-    this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y));
-    this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x));
-    this.velocity.x = bound(this.velocity.x + (deltaTime + ddx), -MAXDX);
-    this.velocity.y = bound(this.velocity.y + (deltaTime + ddy), -MAXDY);
+
     
-    if ((wasleft && (this.velocity.x > 0)) || (wasright && (this.velocity.x < 0)))
-    {
-        this.velocity.x = 0;
-    }
     /*
     if (this.velocity.y > 0) {
         if ((celldown && !cell) || (celldiag && !cellright && nx)) {
