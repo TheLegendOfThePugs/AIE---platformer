@@ -201,6 +201,13 @@ function run()
 		fpsCount = 0;
 	}		
 	
+  //experement--------------------------------------------------------
+  //this.position.x = this.position.x - 6
+  //this.position.y = this.position.y - 1
+  
+  
+  //-------------------------------------------------------------------
+  
 	// draw the FPS
 	context.fillStyle = "#f00";
 	context.font="14px Arial";
