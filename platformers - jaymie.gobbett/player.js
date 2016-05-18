@@ -105,8 +105,8 @@ Player.prototype.update = function(deltaTime)
     this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y))
     this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x))
     
-    var tx = pixleToTile(this.position.x);
-    var ty = pixleToTile(this.position.y);
+    var tx = pixelToTile(this.position.x);
+    var ty = pixelToTile(this.position.y);
     var nx = (this.position.x)%TILE;
     var ny = (this.position.y)%TILE;
     var cell = cellAtTileCoord(LAYER_PLATFORMS, tx, ty);

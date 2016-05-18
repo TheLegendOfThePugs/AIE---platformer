@@ -37,39 +37,14 @@ var gameover = false;
 var tileset = document.createElement("img")
 tileset.src = "tileset.png"
 
-function cellAtPixleCoord(layer, x,y)
-{
-  if(x<0 || x>SCREEN_WIDTH || y<0)
-   return 1;
-   
-  if(y>SCREEN_HEIGHT)
-   return 0;
-  
-  return cellAtPixleCoord(layer, p2t(x), p2t(y));
-  
-};
-
-function cellAtTileCoord(layer, tx, ty)
-{
-  if(tx<0 || tx>MAP.tw || ty<0)
-   return 1;
-  
-  if(ty>=MAP.th)
-   return 0;
-   console.log(ty)
-   console.log(tx)
-   return cells[layer][ty][tx];
-   
-};
-
-function tileToPixle(tile)
+function tileToPixel(tile)
 {
   return tile * TILE;
 };
 
-function pixleToTile(pixle)
+function pixelToTile(pixel)
 {
-  return Math.floor(pixle/TILE);
+  return Math.floor(pixel/TILE);
 };
 
 function bound(value, min, max) {
@@ -79,6 +54,36 @@ function bound(value, min, max) {
   return max;
   return value;
 };
+
+function cellAtPixelCoord(layer, x,y)
+{
+  if(x<0 || x>SCREEN_WIDTH || y<0)
+   return 1;
+   
+  if(y>SCREEN_HEIGHT)
+   return 0;
+  
+  return cellAtPixelCoord(layer, p2t(x), p2t(y));
+  
+};
+
+function cellAtTileCoord(layer, tx, ty) {
+  if (tx < 0 || tx > MAP.tw || ty < 0)
+    return 1;
+
+  if (ty >= MAP.th)
+    return 0;
+  console.log(ty);
+  console.log(tx);
+  return cells[layer][tx][ty];
+
+};
+
+
+
+
+
+
 
 
 
