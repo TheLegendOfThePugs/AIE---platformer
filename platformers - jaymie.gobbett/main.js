@@ -32,6 +32,7 @@ var ACCEL = MAXDX * 2;
 var FRICTION = MAXDX * 6;
 var JUMP = METER * 1500;
 
+var gameover = false;
 
 var tileset = document.createElement("img")
 tileset.src = "tileset.png"
@@ -169,7 +170,12 @@ function run()
 	context.fillStyle = "#ccc";		
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	
-  
+  if (gameover == true)
+  {
+    context.fillStyle = "#000";
+      context.font="40px Arial";
+      context.fillText(gameover + "game over", 200, 240); 
+  }
   
   
   
