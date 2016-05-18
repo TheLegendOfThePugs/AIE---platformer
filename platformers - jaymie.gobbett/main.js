@@ -24,6 +24,8 @@ var TILESET_SPACING = 2;
 var TILESET_COUNT_X = 14;
 var TILESET_COUNT_Y = 14;
  
+var time = 0;
+ 
 var METER = TILE;
 var GRAVITY = METER * 9.8 * 6;
 var MAXDX = METER * 10;
@@ -170,13 +172,8 @@ function run()
 {
 	context.fillStyle = "#ccc";		
 	context.fillRect(0, 0, canvas.width, canvas.height);
-	
-  if (gameover == true)
-  {
-    context.fillStyle = "#000";
-      context.font="40px Arial";
-      context.fillText(gameover + "game over", 200, 240); 
-  }
+  
+  
   
 
   
@@ -189,7 +186,7 @@ function run()
     
 	//context.drawImage(chuckNorris, SCREEN_WIDTH/2 - chuckNorris.width/2, SCREEN_HEIGHT/2 - chuckNorris.height/2);
 	
-    
+  time = time + 2;
 		
 	// update the frame counter 
 	fpsTime += deltaTime;
@@ -212,6 +209,19 @@ function run()
 	context.fillStyle = "#f00";
 	context.font="14px Arial";
 	context.fillText("FPS: " + fps, 5, 20, 100);
+	
+  if (gameover == true)
+  {
+    context.fillStyle = "#000";
+    context.font="40px Arial";
+    context.fillText(gameover + "game over", 200, 240); 
+  }
+  if (gameover == false)
+  {
+  context.fillStyle = "#000";
+  context.font="40px Arial";
+  context.fillText(time + ("sec"), 200, 240); 
+  }
 }
 
 
