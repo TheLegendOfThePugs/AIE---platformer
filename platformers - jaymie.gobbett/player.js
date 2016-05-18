@@ -193,7 +193,7 @@ Player.prototype.update = function(deltaTime)
     {
         this.velocity.x = 0;
     }
-    
+    /*
     if (this.velocity.y > 0) {
         if ((celldown && !cell) || (celldiag && !cellright && nx)) {
             this.position.y = tileTopixel(ty);
@@ -225,6 +225,7 @@ Player.prototype.update = function(deltaTime)
             this.velocity.x = 0;
         }
     }
+    */
 }
 
 Player.prototype.draw = function()
