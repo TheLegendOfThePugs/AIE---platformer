@@ -1,7 +1,7 @@
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
 var LEFT = 0;
-var RIGHT = 0;
+var RIGHT = 1;
 
 var ANIM_IDLE_LEFT = 0;
 var ANIM_JUMP_LEFT = 1;
@@ -65,6 +65,9 @@ Player.prototype.update = function(deltaTime)
 {
     
     this.sprite.update(deltaTime);
+    var left = false;
+    var right = false;
+    var jump = false;
     
     if( typeof(this.rotation) == "undefined" )
         this.rotation = 0;
@@ -106,21 +109,12 @@ Player.prototype.update = function(deltaTime)
         }
     }
     
-    player.falling = !(celldown || (nx && celldiag));
+    //player.falling = !(celldown || (nx && celldiag));
     
-    var left = false
-    var right = false
-    var jump = false
     
-    this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y));
-    this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x));
-    this.velocity.x = bound(this.velocity.x + (deltaTime + ddx), -MAXDX);
-    this.velocity.y = bound(this.velocity.y + (deltaTime + ddy), -MAXDY);
     
-    if ((wasleft && (this.velocity.x > 0)) || (wasright && (this.velocity.x < 0)))
-    {
-        this.velocity.x = 0;
-    }
+    
+    
     
     /*
     this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y))
@@ -160,19 +154,12 @@ Player.prototype.update = function(deltaTime)
             this.velocity.x = 0;
         }
     }
-    if (this.velocity.x < 0) {
+    else if (this.velocity.x < 0) {
         if ((cell && !cellright) || (celldown && !celldiag && ny)) {
             this.position.x = tileToPixel(tx + 1);
             this.velocity.x = 0;
         }
     }
-    
-    
-    
-    
-    
-    
-    
     
     
     if (jump && !this.jumping && !falling)
@@ -199,7 +186,17 @@ Player.prototype.update = function(deltaTime)
        ddx = ddx + ACCEL;
     else if (wasright)
        ddx = ddx - FRICTION;
-       
+    
+    this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y));
+    this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x));
+    this.velocity.x = bound(this.velocity.x + (deltaTime + ddx), -MAXDX, -MAXDX);
+    this.velocity.y = bound(this.velocity.y + (deltaTime + ddy), -MAXDY, -MAXDY);
+    
+    if ((wasleft && (this.velocity.x > 0)) || (wasright && (this.velocity.x < 0)))
+    {
+        this.velocity.x = 0;
+    }
+    
     /*
     if (jump && !this.jumping && !falling)
     {

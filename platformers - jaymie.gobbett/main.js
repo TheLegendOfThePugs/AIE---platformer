@@ -76,8 +76,7 @@ function cellAtTileCoord(layer, tx, ty) {
   if (ty >= MAP.th)
     return 0;
   //console.log(ty);
-  //console.log(tx);
-  console.log(LAYER_PLATFORMS);  
+  //console.log(tx);  
   return cells[layer][ty][tx];
 
 };
