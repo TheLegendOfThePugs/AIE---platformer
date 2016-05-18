@@ -12,9 +12,9 @@ var ANIM_WALK_RIGHT = 5;
 var ANIM_MAX = 6;
 
 //var TILE = 35;
-
+//----------------------------------------------------------------------
 var keyboard = new Keyboard();
-
+//--------------------------------------------------------------------------------
 var Player = function() {
     
     this.sprite = new Sprite("ChuckNorris.png")
@@ -59,71 +59,10 @@ var Player = function() {
 
 
 
-
+//----------------------------------------------------------------------------
 
 Player.prototype.update = function(deltaTime)
 {
-    
-    if (this.velocity.y > 0) {
-        if ((celldown && !cell) || (celldiag && !cellright && nx)) {
-            this.position.y = tileTopixel(ty);
-            this.velocity.y = 0;
-            this.falling = false;
-            this.jumping = false;
-            ny = 0;
-        }
-    }
-    else if (this.velocity.y < 0) {
-        if ((cell && !celldown) || (cellright && !celldiag && nx)) {
-            this.position.y = tileTopixel(ty + 1);
-            this.velocity.y = 0;
-            cell = celldown;
-            cellright = celldiag;
-            ny = 0;
-        }
-    }
-    
-    if (this.velocity.x > 0) {
-        if ((cell && !cellright) || (celldiag && !celldown && ny)) {
-            this.position.x = tileTopixel(tx);
-            this.velocity.x = 0;
-        }
-    }
-    if (this.velocity.x < 0) {
-        if ((cell && !cellright) || (celldown && !celldiag && ny)) {
-            this.position.x = tileTopixel(tx + 1);
-            this.velocity.x = 0;
-        }
-    }
-    
-    player.falling = !(celldown || (nx && celldiag));
-    
-    var left = false
-    var right = false
-    var jump = false
-    
-    this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y));
-    this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x));
-    this.velocity.x = bound(this.velocity.x + (deltaTime + ddx), -MAXDX);
-    this.velocity.y = bound(this.velocity.y + (deltaTime + ddy), -MAXDY);
-    
-    if ((wasleft && (this.velocity.x > 0)) || (wasright && (this.velocity.x < 0)))
-    {
-        this.velocity.x = 0;
-    }
-    
-    /*
-    this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y))
-    this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x))
-    */
-    var tx = pixelToTile(this.position.x);
-    var ty = pixelToTile(this.position.y);
-    var nx = (this.position.x)%TILE;
-    var ny = (this.position.y)%TILE;
-    var cell = cellAtTileCoord(LAYER_PLATFORMS, ty, tx);
-    var cellright = cellAtTileCoord(LAYER_PLATFORMS, tx + 1, ty);
-    var celldown = cellAtTileCoord(LAYER_PLATFORMS, tx, ty + 1);
-    var celldiag = cellAtTileCoord(LAYER_PLATFORMS, tx + 1, ty + 1);
     
     this.sprite.update(deltaTime);
     
@@ -167,6 +106,73 @@ Player.prototype.update = function(deltaTime)
         }
     }
     
+    player.falling = !(celldown || (nx && celldiag));
+    
+    var left = false
+    var right = false
+    var jump = false
+    
+    this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y));
+    this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x));
+    this.velocity.x = bound(this.velocity.x + (deltaTime + ddx), -MAXDX);
+    this.velocity.y = bound(this.velocity.y + (deltaTime + ddy), -MAXDY);
+    
+    if ((wasleft && (this.velocity.x > 0)) || (wasright && (this.velocity.x < 0)))
+    {
+        this.velocity.x = 0;
+    }
+    
+    /*
+    this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y))
+    this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x))
+    */
+    var tx = pixelToTile(this.position.x);
+    var ty = pixelToTile(this.position.y);
+    var nx = (this.position.x)%TILE;
+    var ny = (this.position.y)%TILE;
+    var cell = cellAtTileCoord(LAYER_PLATFORMS, ty, tx);
+    var cellright = cellAtTileCoord(LAYER_PLATFORMS, tx + 1, ty);
+    var celldown = cellAtTileCoord(LAYER_PLATFORMS, tx, ty + 1);
+    var celldiag = cellAtTileCoord(LAYER_PLATFORMS, tx + 1, ty + 1);
+    
+    if (this.velocity.y > 0) {
+        if ((celldown && !cell) || (celldiag && !cellright && nx)) {
+            this.position.y = tileToPixel(ty);
+            this.velocity.y = 0;
+            this.falling = false;
+            this.jumping = false;
+            ny = 0;
+        }
+    }
+    else if (this.velocity.y < 0) {
+        if ((cell && !celldown) || (cellright && !celldiag && nx)) {
+            this.position.y = tileToPixel(ty + 1);
+            this.velocity.y = 0;
+            cell = celldown;
+            cellright = celldiag;
+            ny = 0;
+        }
+    }
+    
+    if (this.velocity.x > 0) {
+        if ((cell && !cellright) || (celldiag && !celldown && ny)) {
+            this.position.x = tileToPixel(tx);
+            this.velocity.x = 0;
+        }
+    }
+    if (this.velocity.x < 0) {
+        if ((cell && !cellright) || (celldown && !celldiag && ny)) {
+            this.position.x = tileToPixel(tx + 1);
+            this.velocity.x = 0;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     
     
     if (jump && !this.jumping && !falling)
@@ -186,8 +192,14 @@ Player.prototype.update = function(deltaTime)
     
     if (left)
        ddx = ddx + ACCEL;
+    else if (wasleft)
+       ddx = ddx - FRICTION;
+       
+    if (right)
+       ddx = ddx + ACCEL;
     else if (wasright)
-       ddx = ddx - friction;
+       ddx = ddx - FRICTION;
+       
     /*
     if (jump && !this.jumping && !falling)
     {
@@ -230,6 +242,7 @@ Player.prototype.update = function(deltaTime)
         }
     }
     */
+      console.log(this.position);
 }
 
 Player.prototype.draw = function()

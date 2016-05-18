@@ -36,16 +36,18 @@ var gameover = false;
 
 var tileset = document.createElement("img")
 tileset.src = "tileset.png"
-
+//-------------------------------------------------------------------------------------
 function tileToPixel(tile)
 {
   return tile * TILE;
 };
-
+//-----------------------------------------------------------------------------
 function pixelToTile(pixel)
 {
   return Math.floor(pixel/TILE);
 };
+
+//--------------------------------------------------------------------------------------------
 
 function bound(value, min, max) {
   if (value < min)
@@ -54,7 +56,7 @@ function bound(value, min, max) {
   return max;
   return value;
 };
-
+//----------------------------------------------------------------------------------
 function cellAtPixelCoord(layer, x,y)
 {
   if(x<0 || x>SCREEN_WIDTH || y<0)
@@ -66,7 +68,7 @@ function cellAtPixelCoord(layer, x,y)
   return cellAtPixelCoord(layer, p2t(x), p2t(y));
   
 };
-
+//---------------------------------------------------------------------------
 function cellAtTileCoord(layer, tx, ty) {
   if (tx < 0 || tx > MAP.tw || ty < 0)
     return 1;
@@ -80,15 +82,7 @@ function cellAtTileCoord(layer, tx, ty) {
 
 };
 
-
-
-
-
-
-
-
-
-
+//---------------------------------------------------------------
 
 function drawMap() {
     for (var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) {
@@ -109,7 +103,7 @@ function drawMap() {
         }
     }
 }
- 
+//----------------------------------------------------------------------------------
 function getDeltaTime()
 {
 	endFrameMillis = startFrameMillis;
@@ -130,7 +124,7 @@ function getDeltaTime()
 	return deltaTime;
 }
 
-//-------------------- Don't modify anything above here
+//-------------------- Don't modify anything above here---------------------------------------
 
 var SCREEN_WIDTH = canvas.width;
 var SCREEN_HEIGHT = canvas.height;
@@ -147,6 +141,7 @@ var fpsTime = 0;
 var chuckNorris = document.createElement("img");
 chuckNorris.src = "hero.png";
 
+//---------------------------------------------------------------------------------------------------
 var cells = [];
 function initialize() {
   for(var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) {
@@ -169,9 +164,9 @@ function initialize() {
     }
   }
 }
-
+//--------------------------------------------------------------------------------------
 var player = new Player();
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
 function run()
 {
 	context.fillStyle = "#ccc";		
@@ -184,7 +179,7 @@ function run()
       context.fillText(gameover + "game over", 200, 240); 
   }
   
-  
+
   
     drawMap();
     
