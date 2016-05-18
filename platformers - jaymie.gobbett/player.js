@@ -66,7 +66,7 @@ Player.prototype.update = function(deltaTime)
     
     if (this.velocity.y > 0) {
         if ((celldown && !cell) || (celldiag && !cellright && nx)) {
-            this.position.y = tileToPixel(ty);
+            this.position.y = tileTopixel(ty);
             this.velocity.y = 0;
             this.falling = false;
             this.jumping = false;
@@ -75,7 +75,7 @@ Player.prototype.update = function(deltaTime)
     }
     else if (this.velocity.y < 0) {
         if ((cell && !celldown) || (cellright && !celldiag && nx)) {
-            this.position.y = tileToPixel(ty + 1);
+            this.position.y = tileTopixel(ty + 1);
             this.velocity.y = 0;
             cell = celldown;
             cellright = celldiag;
@@ -85,13 +85,13 @@ Player.prototype.update = function(deltaTime)
     
     if (this.velocity.x > 0) {
         if ((cell && !cellright) || (celldiag && !celldown && ny)) {
-            this.position.x = tileToPixel(tx);
+            this.position.x = tileTopixel(tx);
             this.velocity.x = 0;
         }
     }
     if (this.velocity.x < 0) {
         if ((cell && !cellright) || (celldown && !celldiag && ny)) {
-            this.position.x = tileToPixel(tx + 1);
+            this.position.x = tileTopixel(tx + 1);
             this.velocity.x = 0;
         }
     }
@@ -177,12 +177,12 @@ Player.prototype.update = function(deltaTime)
        ddx = ddx + ACCEL;
     else if (wasright)
        ddx = ddx - friction;
-    
+    /*
     if (jump && !this.jumping && !falling)
     {
         ddy = ddy - JUMP;
         this.jump = true;
-    }
+    }*/
     
     this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y));
     this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x));
@@ -196,7 +196,7 @@ Player.prototype.update = function(deltaTime)
     
     if (this.velocity.y > 0) {
         if ((celldown && !cell) || (celldiag && !cellright && nx)) {
-            this.position.y = tileToPixel(ty);
+            this.position.y = tileTopixel(ty);
             this.velocity.y = 0;
             this.falling = false;
             this.jumping = false;
@@ -205,7 +205,7 @@ Player.prototype.update = function(deltaTime)
     }
     else if (this.velocity.y < 0) {
         if ((cell && !celldown) || (cellright && !celldown && nx)) {
-            this.position.y = tileToPixel(ty + 1);
+            this.position.y = tileTopixel(ty + 1);
             this.velocity.y = 0;
             cell = celldown;
             cellright = celldiag;
@@ -214,14 +214,14 @@ Player.prototype.update = function(deltaTime)
     }
     if (this.velocity.x > 0) {
         if ((cellright && !cell) || (celldiag && !celldown && ny)) {
-            this.position.x = tileToPixel(tx);
+            this.position.x = tileTopixel(tx);
             this.velocity.x = 0;
             
         }
     }
     else if (this.velocity.x < 0) {
         if ((cell && !cellright) || (celldown && !celldiag && ny)) {
-            this.position.x = tileToPixel(tx + 1);
+            this.position.x = tileTopixel(tx + 1);
             this.velocity.x = 0;
         }
     }
