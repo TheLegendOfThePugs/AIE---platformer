@@ -49,7 +49,7 @@ Vector2.prototype.Multiply = function (scalar)
     this.y *= scalar;
 }
 
-Vector2.prototype.Devide = function (scalar)
+Vector2.prototype.Divide = function (scalar)
 {
     this.x /= scalar;
     this.y /= scalar;
