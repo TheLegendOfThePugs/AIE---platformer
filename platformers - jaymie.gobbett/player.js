@@ -138,39 +138,44 @@ Player.prototype.update = function(deltaTime)
             ny = 0;
         }
     }
-    else if (this.velocity.y < 0) {
-        if ((cell && !celldown) || (cellright && !celldiag && nx)) {
-            this.position.y = tileToPixel(ty + 1);
-            this.velocity.y = 0;
-            cell = celldown;
-            cellright = celldiag;
-            ny = 0;
+    //---copyed---\/-\/-\/---------------------------------------------------
+    if (this.velocity.y > 0) {
+        if ((celldown && !cell) || (celldiag && !cellright && nx)) {
+            // clamp the y position to avoid falling into platform below
+            this.position.y = tileToPixel(ty);
+            this.velocity.y = 0; // stop downward velocity
+            this.falling = false; // no longer falling
+            this.jumping = false; // (or jumping)
+            ny = 0; // no longer overlaps the cells below
         }
     }
     
+    else if (this.velocity.y < 0) {
+        if ((cell && !celldown) || (cellright && !celldiag && nx)) {
+            // clamp the y position to avoid jumping into platform above
+            this.position.y = tileToPixel(ty + 1);
+            this.velocity.y = 0; // stop upward velocity
+            // player is no longer really in that cell, we clamped them to the cell below
+            cell = celldown;
+            cellright = celldiag; // (ditto)
+            ny = 0; // player no longer overlaps the cells below
+        }
+    }
     if (this.velocity.x > 0) {
-        if ((cell && !cellright) || (celldiag && !celldown && ny)) {
+        if ((cellright && !cell) || (celldiag && !celldown && ny)) {
+            // clamp the x position to avoid moving into the platform we just hit
             this.position.x = tileToPixel(tx);
-            this.velocity.x = 0;
+            this.velocity.x = 0; // stop horizontal velocity
         }
     }
     else if (this.velocity.x < 0) {
         if ((cell && !cellright) || (celldown && !celldiag && ny)) {
+            // clamp the x position to avoid moving into the platform we just hit
             this.position.x = tileToPixel(tx + 1);
-            this.velocity.x = 0;
+            this.velocity.x = 0; // stop horizontal velocity
         }
     }
-    
-    
-    if (jump && !this.jumping && !falling)
-    {
-        ddy = ddy - JUMP;
-        this.jumping = true;
-        if(this.direction == LEFT) this.sprite.setAnimation(ANIM_JUMP_LEFT)
-        else
-        this.sprite.setAnimation(ANIM_JUMP_RIGHT)
-    }
-    
+    //--------------------------------------------------------------^^^^^^^
     var wasleft = this.velocity.x < 0;
     var wasright = this.velocity.x > 0;
     var falling = this.falling;
