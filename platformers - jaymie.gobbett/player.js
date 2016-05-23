@@ -13,7 +13,7 @@ var ANIM_MAX = 6;
 
 //var TILE = 35;
 //----------------------------------------------------------------------
-var keyboard = new Keyboard();
+//var keyboard = new Keyboard();
 //--------------------------------------------------------------------------------
 var Player = function() {
     
@@ -180,22 +180,26 @@ Player.prototype.update = function (deltaTime) {
             this.velocity.x = 0; // stop horizontal velocity
         }
     }
-    //--------------------------------------------------------------^^^^^^^
+    
     var wasleft = this.velocity.x < 0;
     var wasright = this.velocity.x > 0;
     var falling = this.falling;
-    var ddx = 0;
+    var ddx = 0; // acceleration
     var ddy = GRAVITY;
 
     if (left)
-        ddx = ddx + ACCEL;
+        ddx = ddx - ACCEL; // player wants to go left
     else if (wasleft)
-        ddx = ddx - FRICTION;
-
+        ddx = ddx + FRICTION; // player was going left, but not any more
     if (right)
-        ddx = ddx + ACCEL;
+        ddx = ddx + ACCEL; // player wants to go right
     else if (wasright)
-        ddx = ddx - FRICTION;
+        ddx = ddx - FRICTION; // player was going right, but not any more
+    if (jump && !this.jumping && !falling) {
+        ddy = ddy - JUMP; // apply an instantaneous (large) vertical impulse
+        this.jumping = true;
+    }
+
 
     this.position.y = Math.floor(this.position.y + (deltaTime * this.velocity.y));
     this.position.x = Math.floor(this.position.x + (deltaTime * this.velocity.x));
@@ -203,9 +207,12 @@ Player.prototype.update = function (deltaTime) {
     this.velocity.y = bound(this.velocity.y + (deltaTime * ddy), -MAXDY, MAXDY);
 
 
-    if ((wasleft && (this.velocity.x > 0)) || (wasright && (this.velocity.x < 0))) {
+    if ((wasleft && (this.velocity.x > 0)) ||
+        (wasright && (this.velocity.x < 0))) {
+        // clamp at zero to prevent friction from making us jiggle side to side
         this.velocity.x = 0;
     }
+
 
     /*
     if (jump && !this.jumping && !falling)
@@ -249,7 +256,13 @@ Player.prototype.update = function (deltaTime) {
         }
     }
     */
-    console.log(this.position);
+    //console.log(this.position);
+    if(this.position.x < 0 || this.position.x > SCREEN_WIDTH || 
+                    this.position.y < 0 || this.position.y > SCREEN_HEIGHT )//|| hit == true)
+      { 
+              life = life - 1;
+              this.position.set(300, 100);
+      }
 }
 
 Player.prototype.draw = function () {

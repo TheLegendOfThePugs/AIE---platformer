@@ -1,13 +1,13 @@
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
 
-
+var life = 3
 
 var startFrameMillis = Date.now();
 var endFrameMillis = Date.now();
 
 
-//var keyboard = new Keyboard();
+var keyboard = new Keyboard();
 
 // This function will return the time in seconds since the function 
 // was last called
@@ -54,7 +54,7 @@ function pixelToTile(pixel)
 function bound(value, min, max) {
   if (value < min)
     return min;
-  if (value > max);
+  if (value > max)
     return max;
   return value;
 };
@@ -198,6 +198,8 @@ function run()
 		fpsCount = 0;
 	}		
 	
+  
+  
   //experement--------------------------------------------------------
   //this.position.x = this.position.x - 6
   //this.position.y = this.position.y - 1
@@ -214,13 +216,39 @@ function run()
   {
     context.fillStyle = "#000";
     context.font="40px Arial";
-    context.fillText(gameover + "game over", 200, 240); 
+    context.fillText("game over", 200, 240); 
   }
   if (gameover == false)
   {
   context.fillStyle = "#000";
-  context.font="40px Arial";
-  context.fillText(time + ("sec"), 200, 240); 
+  context.font="30px Arial";
+  context.fillText("sec " + time, 500, 40); 
+  }
+  
+  if (life >= 3)
+  {
+  context.fillStyle = "#000";
+  context.font="20px Arial";
+  context.fillText("life 3", 50, 80); 
+  }
+  
+  if (life >= 2)
+  {
+  context.fillStyle = "#000";
+  context.font="20px Arial";
+  context.fillText("life 2", 50, 60); 
+  }
+  
+  if (life >= 1)
+  {
+  context.fillStyle = "#000";
+  context.font="20px Arial";
+  context.fillText("life 1", 50, 40); 
+  }
+  
+  if (life == 0)
+  {
+  gameover = true
   }
 }
 
