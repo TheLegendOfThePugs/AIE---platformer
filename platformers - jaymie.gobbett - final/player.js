@@ -55,6 +55,8 @@ var Player = function() {
     
     this.direction = LEFT;
     
+    this.cooldownTimer = 0;
+    
 };
 
 
@@ -92,7 +94,7 @@ Player.prototype.update = function (deltaTime) {
             }
         }
     }
-    if (keyboard.isKeyDown(keyboard.KEY_SPACE) == true) {
+    if (keyboard.isKeyDown(keyboard.KEY_UP) == true) {
         jump = true;
         if (left == true) {
             this.sprite.setAnimation(ANIM_JUMP_LEFT);
@@ -101,7 +103,15 @@ Player.prototype.update = function (deltaTime) {
             this.sprite.setAnimation(ANIM_JUMP_RIGHT);
         }
     }
-
+    
+    if(this.cooldownTimer > 0)
+    {
+        this.cooldownTimer -= deltaTime;
+    }
+    if(keyboard.isKeyDown(keyboard.KEY_SPACE) == true && this.cooldownTimer <= 0) {
+        sfxFire.play();
+        this.cooldownTimer = 0.3;
+    }
     //player.falling = !(celldown || (nx && celldiag));
 
 
@@ -257,12 +267,14 @@ Player.prototype.update = function (deltaTime) {
     }
     */
     //console.log(this.position);
-    if(this.position.x < 0 || this.position.x > SCREEN_WIDTH || 
-                    this.position.y < 0 || this.position.y > SCREEN_HEIGHT )//|| hit == true)
+    if(this.position.y > SCREEN_HEIGHT)//|| hit == true)
       { 
               life = life - 1;
               this.position.set(300, 100);
       }
+      //context.drawImage(this.image, this.position.x - worldOffsetX, this.position.y);
+      
+      this.sprite.draw(context, this.position.x - worldOffsetX, this.position.y);
 }
 
 Player.prototype.draw = function () {
